@@ -1,0 +1,397 @@
+openapi: 3.0.0
+info:
+  title: McK Social Media APIs
+  description: APIs for posting, fetching, deleting data into and from the platform
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/
+    description: Local server
+
+paths:
+  /auth/login:
+    post:
+      tags: 
+        - Auth
+      summary: Logs the user into the system.
+      description: Returns A JSON that contains the access_token.
+      requestBody:
+        description:  sample request body for login
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                email:
+                  type: string
+                  example: email@domail.tld
+                password:
+                  type: string
+                  example: password
+      responses:
+        '200':
+          description: A JSON that contains the access_token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    example: header.body.hash
+        '401':
+          description: Invalid Credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for error message due to invalid credentials  
+  /auth/register:
+    post:
+      tags: 
+        - Auth
+      summary: Logs the user into the system.
+      description: Returns A JSON that contains the access_token.
+      requestBody:
+        description:  sample request body for login
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                name:
+                  type: string
+                  example: John Doe
+                email:
+                  type: string
+                  example: email@domail.tld
+                password:
+                  type: string
+                  example: "password"
+                experiences:
+                  type: array
+                  description: Contains the experiences of the user
+                  items:
+                    type: object
+                    properties:
+                      comapanyName:
+                        type: string
+                        example: company
+                      startDate: 
+                        type: string
+                        example: 2021-02-28T00:00:00.000Z
+                      endDate: 
+                        type: string
+                        example: 2021-02-28T00:00:00.000Z
+                      role: 
+                        type: string
+                        example: role
+                interests:
+                  type: array
+                  description: Contains the experiences of the user
+                  items:
+                    type: object
+                    properties:
+                      interestId:
+                        type: integer
+                        example: 1
+                      interestName:
+                        type: string
+                        example: intrest
+      responses:
+        '201':
+          description: A JSON that contains the access_token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    example: header.body.hash
+        '400':
+          description: Validation error message response if there are any validation related errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for error message due to validation error
+  /posts/{userId}:
+    get:
+      tags: 
+        - Posts
+      summary: Fetchs the posts of the specific user.
+      description: Returns A JSON that contains the array of posts of that user.
+      responses:
+        '200':
+          description: A JSON that contains the array of posts of that user.
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Contains posts of that user.
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      example: 1
+                    userName:
+                      type: string
+                      example: John Doe
+                    userRole:
+                      type: string
+                      example: role
+                    caption:
+                      type: string
+                      example: caption
+                    image_url:
+                      type: string
+                      example: https://www.image.com/image.jpg
+                    likesCount:
+                      type: number
+                      example: 500
+                    commentsCount:
+                      type: number
+                      example: 10
+                    isLiked:
+                      type: boolean
+                      example: true
+        '401':
+          description: Missing or invalid Authorization information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for error message due to missing or invalid Authorization information  
+  /posts/feed:
+    get:
+      tags: 
+        - Posts
+      summary: Fetchs the posts to be shown in the feed.
+      description: Returns A JSON that contains the array of posts to be shown in the feed.
+      responses:
+        '200':
+          description: A JSON that contains the array of posts to be shown in the feed.
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Contains posts to be shown in the feed.
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      example: 1
+                    userName:
+                      type: string
+                      example: John Doe
+                    userRole:
+                      type: string
+                      example: role
+                    caption:
+                      type: string
+                      example: caption
+                    image_url:
+                      type: string
+                      example: https://www.image.com/image.jpg
+                    likesCount:
+                      type: number
+                      example: 500
+                    commentsCount:
+                      type: number
+                      example: 10
+                    isLiked:
+                      type: boolean
+                      example: true
+        '401':
+          description: Missing or invalid Authorization information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for error message due to missing or invalid Authorization information  
+  /posts/{postId}:
+    get:
+      tags: 
+        - Posts
+      summary: Fetchs a single post with its comments.
+      description: Returns A JSON that contains details of the post with its comments.
+      responses:
+        '200':
+          description: A JSON that contains details of the post with its comments.
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Contains details of the post with its comments.
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      example: 1
+                    userName:
+                      type: string
+                      example: John Doe
+                    userRole:
+                      type: string
+                      example: role
+                    caption:
+                      type: string
+                      example: caption
+                    image_url:
+                      type: string
+                      example: https://www.image.com/image.jpg
+                    likesCount:
+                      type: number
+                      example: 500
+                    commentsCount:
+                      type: number
+                      example: 10
+                    isLiked:
+                      type: boolean
+                      example: true
+                    comments:
+                      type: array
+                      description: Contains comments of the post.
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: number
+                            example: 1
+                          userName:
+                            type: string
+                            example: John Doe
+                          userRole:
+                            type: string
+                            example: role
+                          comment:
+                            type: string
+                            example: comment
+        '401':
+          description: Missing or invalid Authorization information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for error message due to missing or invalid Authorization information 
+  /posts:
+    post:
+      tags: 
+        - Posts
+      summary: Create a new Post.
+      description: Returns a success code 201 on successful post creation.
+      requestBody:
+        description:  sample request body for post creation.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                caption:
+                  type: string
+                  example: caption
+                image_url:
+                  type: string
+                  example: https://www.image.com/image.jpg
+                tags:
+                  type: array
+                  description: Contains tagged users.
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      userName:
+                        type: string
+                        example: John Doe    
+      responses:
+        '201':
+          description: A success code 201 on successful post creation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for success message.
+        '400':
+          description: Validation error message response if there are any validation related errors.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for error message due to validation error.
+        '401':
+          description: Missing or invalid Authorization information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for error message due to missing or invalid Authorization information 
+  /post/{postId}:
+    delete:
+      tags: 
+        - Posts
+      summary: Deletes a specific Post.
+      description: Returns a success code 204 on successful post deletion.
+      responses:
+        '204':
+          description: A success code 204 on successful post deletion.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for success message.
+        '400':
+          description: Validation error message response if there are any validation related errors.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for error message due to validation error.
+        '401':
+          description: Missing or invalid Authorization information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Placeholder for error message due to missing or invalid Authorization information 
+   
