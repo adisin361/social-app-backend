@@ -10,18 +10,18 @@ servers:
 paths:
   /auth/login:
     post:
-      tags: 
+      tags:
         - Auth
       summary: Logs the user into the system.
       description: Returns A JSON that contains the access_token.
       requestBody:
-        description:  sample request body for login
+        description: sample request body for login
         required: true
         content:
           application/json:
             schema:
               type: object
-              properties: 
+              properties:
                 email:
                   type: string
                   example: email@domail.tld
@@ -29,7 +29,7 @@ paths:
                   type: string
                   example: password
       responses:
-        '200':
+        "200":
           description: A JSON that contains the access_token.
           content:
             application/json:
@@ -39,7 +39,7 @@ paths:
                   access_token:
                     type: string
                     example: header.body.hash
-        '401':
+        "401":
           description: Invalid Credentials
           content:
             application/json:
@@ -48,21 +48,21 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Placeholder for error message due to invalid credentials  
+                    example: Placeholder for error message due to invalid credentials
   /auth/register:
     post:
-      tags: 
+      tags:
         - Auth
       summary: Logs the user into the system.
       description: Returns A JSON that contains the access_token.
       requestBody:
-        description:  sample request body for login
+        description: sample request body for login
         required: true
         content:
           application/json:
             schema:
               type: object
-              properties: 
+              properties:
                 name:
                   type: string
                   example: John Doe
@@ -81,13 +81,13 @@ paths:
                       comapanyName:
                         type: string
                         example: company
-                      startDate: 
+                      startDate:
                         type: string
                         example: 2021-02-28T00:00:00.000Z
-                      endDate: 
+                      endDate:
                         type: string
                         example: 2021-02-28T00:00:00.000Z
-                      role: 
+                      role:
                         type: string
                         example: role
                 interests:
@@ -103,7 +103,7 @@ paths:
                         type: string
                         example: interest
       responses:
-        '201':
+        "201":
           description: A JSON that contains the access_token.
           content:
             application/json:
@@ -113,7 +113,7 @@ paths:
                   access_token:
                     type: string
                     example: header.body.hash
-        '400':
+        "400":
           description: Validation error message response if there are any validation related errors
           content:
             application/json:
@@ -125,12 +125,12 @@ paths:
                     example: Placeholder for error message due to validation error
   /posts/{userId}:
     get:
-      tags: 
+      tags:
         - Posts
       summary: Fetchs the posts of the specific user.
       description: Returns a JSON that contains the array of posts of that user.
       responses:
-        '200':
+        "200":
           description: A JSON that contains the array of posts of that user.
           content:
             application/json:
@@ -167,7 +167,7 @@ paths:
                     isLiked:
                       type: boolean
                       example: true
-        '401':
+        "401":
           description: Missing or invalid Authorization information
           content:
             application/json:
@@ -176,15 +176,15 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Placeholder for error message due to missing or invalid Authorization information  
+                    example: Placeholder for error message due to missing or invalid Authorization information
   /posts/feed:
     get:
-      tags: 
+      tags:
         - Posts
       summary: Fetchs the posts to be shown in the feed.
       description: Returns a JSON that contains the array of posts to be shown in the feed.
       responses:
-        '200':
+        "200":
           description: A JSON that contains the array of posts to be shown in the feed.
           content:
             application/json:
@@ -221,7 +221,7 @@ paths:
                     isLiked:
                       type: boolean
                       example: true
-        '401':
+        "401":
           description: Missing or invalid Authorization information
           content:
             application/json:
@@ -230,15 +230,15 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Placeholder for error message due to missing or invalid Authorization information  
+                    example: Placeholder for error message due to missing or invalid Authorization information
   /posts/{postId}:
     get:
-      tags: 
+      tags:
         - Posts
       summary: Fetchs a single post with its comments.
       description: Returns A JSON that contains details of the post with its comments.
       responses:
-        '200':
+        "200":
           description: A JSON that contains details of the post with its comments.
           content:
             application/json:
@@ -293,7 +293,7 @@ paths:
                           comment:
                             type: string
                             example: comment
-        '401':
+        "401":
           description: Missing or invalid Authorization information
           content:
             application/json:
@@ -302,21 +302,21 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Placeholder for error message due to missing or invalid Authorization information 
+                    example: Placeholder for error message due to missing or invalid Authorization information
   /posts:
     post:
-      tags: 
+      tags:
         - Posts
       summary: Create a new Post.
       description: Returns a success code 201 on successful post creation.
       requestBody:
-        description:  sample request body for post creation.
+        description: sample request body for post creation.
         required: true
         content:
           application/json:
             schema:
               type: object
-              properties: 
+              properties:
                 caption:
                   type: string
                   example: caption
@@ -334,9 +334,9 @@ paths:
                         example: 1
                       userName:
                         type: string
-                        example: John Doe    
+                        example: John Doe
       responses:
-        '201':
+        "201":
           description: A success code 201 on successful post creation.
           content:
             application/json:
@@ -346,7 +346,7 @@ paths:
                   message:
                     type: string
                     example: Placeholder for success message.
-        '400':
+        "400":
           description: Validation error message response if there are any validation related errors.
           content:
             application/json:
@@ -356,7 +356,7 @@ paths:
                   message:
                     type: string
                     example: Placeholder for error message due to validation error.
-        '401':
+        "401":
           description: Missing or invalid Authorization information
           content:
             application/json:
@@ -365,15 +365,15 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Placeholder for error message due to missing or invalid Authorization information 
+                    example: Placeholder for error message due to missing or invalid Authorization information
   /post/{postId}:
     delete:
-      tags: 
+      tags:
         - Posts
       summary: Deletes a specific Post.
       description: Returns a success code 204 on successful post deletion.
       responses:
-        '204':
+        "204":
           description: A success code 204 on successful post deletion.
           content:
             application/json:
@@ -383,7 +383,7 @@ paths:
                   message:
                     type: string
                     example: Placeholder for success message.
-        '400':
+        "400":
           description: Validation error message response if there are any validation related errors.
           content:
             application/json:
@@ -393,7 +393,7 @@ paths:
                   message:
                     type: string
                     example: Placeholder for error message due to validation error.
-        '401':
+        "401":
           description: Missing or invalid Authorization information
           content:
             application/json:
@@ -402,10 +402,10 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Placeholder for error message due to missing or invalid Authorization information 
+                    example: Placeholder for error message due to missing or invalid Authorization information
   /search:
     get:
-      tags: 
+      tags:
         - Search
       summary: Search by name and/or interests
       description: Returns an array of objects containing array of users satisfying the criteria.
@@ -423,7 +423,7 @@ paths:
             example: java
           description: Name of the interest to be searched
       responses:
-        '200':
+        "200":
           description: A JSON that contains the array of users satisfying the criteria.
           content:
             application/json:
@@ -448,7 +448,7 @@ paths:
                     isFollowed:
                       type: boolean
                       example: false
-        '400':
+        "400":
           description: Validation error message response if there are any validation related errors.
           content:
             application/json:
@@ -458,7 +458,7 @@ paths:
                   message:
                     type: string
                     example: Placeholder for error message due to validation error.
-        '401':
+        "401":
           description: Missing or invalid Authorization information
           content:
             application/json:
@@ -467,5 +467,34 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Placeholder for error message due to missing or invalid Authorization information 
-   
+                    example: Placeholder for error message due to missing or invalid Authorization information
+  /notifications:
+    get:
+      tags:
+        - Notifications
+      summary: Displays all the notifications
+      description: Returns an array of objects containing all the notifications
+      responses:
+        "200":
+          description: A JSON that contains the array of objects containing all notifications.
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Contains notifications of the user.
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      example: 1
+                    message:
+                      type: string
+                      example: Tomorrow will be a holiday due to Republic Day.
+
+                    date:
+                      type: string
+                      example: 23.01.2023
+                    time:
+                      type: string
+                      example: 12:23
